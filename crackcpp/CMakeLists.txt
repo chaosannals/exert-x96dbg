@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(crackme)
 
 add_subdirectory(crackcmd)
+add_subdirectory(cracksdl2)
 add_subdirectory(crackwa)
