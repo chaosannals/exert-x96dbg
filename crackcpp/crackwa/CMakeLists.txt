@@ -8,12 +8,21 @@ set_target_properties(
     CXX_STANDARD 20
 )
 
+if (CMAKE_CL_64)
+    message(STATUS "is 64bit")
+else()
+    message(STATUS "is 32bit")
+endif()
+
 if (WIN32)
    if (MSVC)
       # 指定 Unicode
       target_compile_definitions(
           crackwa
           PUBLIC
+          -DCRACKWA_LV=2 # 加 -D 前缀可以
+          CRACKWA_TIP="crack windows app" # 不加 -D 也可以
+          CRACKWA_TOKEN
           -DUNICODE
           -D_UNICODE
       )
