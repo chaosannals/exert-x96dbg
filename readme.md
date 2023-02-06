@@ -11,3 +11,11 @@
 1. 打开注册表( regedit )
 2. 找到 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem
 3. 修改 NtfsDisable8dot3NameCreation 的值为 0
+
+## [Process Explorer](https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer)
+
+有些程序反调试，调试器启动就会关闭，可以先用 Process Explorer 查看。
+
+## [Ghidra](https://github.com/NationalSecurityAgency/ghidra)
+
+IDA 是商业软件，Ghidra 是 NASA 开源的静态分析工具。
