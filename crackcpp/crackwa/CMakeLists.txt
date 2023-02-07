@@ -8,6 +8,14 @@ set_target_properties(
     CXX_STANDARD 20
 )
 
+if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+    message(STATUS "is Linux")
+elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
+    message(STATUS "is Windows")
+elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
+    message(STATUS "is MacOS")
+endif()
+
 if (CMAKE_CL_64)
     message(STATUS "is 64bit")
 else()
