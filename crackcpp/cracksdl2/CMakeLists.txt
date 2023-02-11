@@ -98,6 +98,8 @@ FetchContent_GetProperties(libsdl2image)
 if (NOT libsdl2image_POPULATED)
 	message(STATUS "not libsdl2image")
 	FetchContent_Populate(libsdl2image)
+
+	# 执行命令，更新子模块，要配置代理，里面还依赖了谷歌的部分代码库，只代理GitHub不行。
 	execute_process(
 		COMMAND git submodule update --init --recursive
         WORKING_DIRECTORY ${libsdl2image_SOURCE_DIR}
