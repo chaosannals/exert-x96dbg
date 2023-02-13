@@ -7,8 +7,8 @@ add_executable(cracksdl2 WIN32)
 # SDL2
 FetchContent_Declare(
 	libsdl2
-	#GIT_REPOSITORY git@github.com:libsdl-org/SDL.git
-	GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
+	# GIT_REPOSITORY git@github.com:libsdl-org/SDL.git
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
 	# GIT_TAG adf31f6ec0be0f9ba562889398f71172c7941023
 	GIT_TAG release-2.26.3
 )
@@ -99,51 +99,54 @@ endif()
 # SDL2 Image
 FetchContent_Declare(
 	libsdl2image
-	#GIT_REPOSITORY git@github.com:libsdl-org/SDL_image.git
-	GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
+	# GIT_REPOSITORY git@github.com:libsdl-org/SDL_image.git
+	# GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
+	# URL https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-devel-2.6.3-VC.zip
+	URL https://download.fastgit.org/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-devel-2.6.3-VC.zip
 	# GIT_TAG d3c6d5963dbe438bcae0e2b6f3d7cfea23d02829
-	GIT_TAG release-2.6.3
+	# GIT_TAG release-2.6.3
 )
 # FetchContent_MakeAvailable(libsdl2image)
 FetchContent_GetProperties(libsdl2image)
 if (NOT libsdl2image_POPULATED)
 	message(STATUS "not libsdl2image")
 	FetchContent_Populate(libsdl2image)
+	message(STATUS "libsdl2image: ${libsdl2image_SOURCE_DIR}" "${libsdl2image_BINARY_DIR}")
 
 	# 执行命令，更新子模块，要配置代理，里面还依赖了谷歌的部分代码库，只代理GitHub不行。
-	execute_process(
-		COMMAND git submodule update --init --recursive
-        WORKING_DIRECTORY ${libsdl2image_SOURCE_DIR}
-	)
+	#execute_process(
+	#	COMMAND git submodule update --init --recursive
+    #    WORKING_DIRECTORY ${libsdl2image_SOURCE_DIR}
+	#)
 
 	# add_dependencies(libsdl2image SDL2)
-	# add_subdirectory("${libsdl2image_SOURCE_DIR}" "${libsdl2image_BINARY_DIR}")
+	#add_subdirectory("${libsdl2image_SOURCE_DIR}" "${libsdl2image_BINARY_DIR}")
 
-	target_link_directories(
-		cracksdl2
-		PUBLIC
-		"${libsdl2image_BINARY_DIR}"
-	)
-	target_include_directories(
-		cracksdl2
-		PUBLIC
-		"${libsdl2image_BINARY_DIR}/include"
-	)
-	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-		message(STATUS "debug link SDL2_imaged.lib")
-		target_link_libraries(
-			cracksdl2
-			PRIVATE
-			SDL2_imaged.lib
-		)
-	else()
-		message(STATUS "release link SDL2_image.lib")
-		target_link_libraries(
-			cracksdl2
-			PRIVATE
-			SDL2_image.lib
-		)
-	endif()
+	#target_link_directories(
+	#	cracksdl2
+	#	PUBLIC
+	#	"${libsdl2image_BINARY_DIR}"
+	#)
+	#target_include_directories(
+	#	cracksdl2
+	#	PUBLIC
+	#	"${libsdl2image_BINARY_DIR}/include"
+	#)
+	#if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	#	message(STATUS "debug link SDL2_imaged.lib")
+	#	target_link_libraries(
+	#		cracksdl2
+	#		PRIVATE
+	#		SDL2_imaged.lib
+	#	)
+	#else()
+	#	message(STATUS "release link SDL2_image.lib")
+	#	target_link_libraries(
+	#		cracksdl2
+	#		PRIVATE
+	#		SDL2_image.lib
+	#	)
+	#endif()
 else()
 	message(STATUS "has libsdl2image")
 	message(STATUS "sdl: ${libsdl2image_SOURCE_DIR} ${libsdl2image_BINARY_DIR}")
