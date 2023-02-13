@@ -39,7 +39,6 @@ else()
 	#	IMPORTED_LOCATION "${libsdl2_BINARY_DIR}"
 	#)
 
-	# CMAKE_BUILD_TYPE 
 	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 		target_include_directories(
 			cracksdl2
@@ -85,6 +84,18 @@ else()
 	endif()
 endif()
 
+if (TARGET SDL2)
+	message(STATUS "SDL2 exists")
+else()
+	message(STATUS "SDL2 not exists")
+endif()
+
+if (TARGET SDL2::SDL2main)
+	message(STATUS "SDL2::SDL2main exists")
+else()
+	message(STATUS "SDL2::SDL2main not exists")
+endif()
+
 # SDL2 Image
 FetchContent_Declare(
 	libsdl2image
@@ -105,21 +116,34 @@ if (NOT libsdl2image_POPULATED)
         WORKING_DIRECTORY ${libsdl2image_SOURCE_DIR}
 	)
 
-	target_include_directories(
-		cracksdl2
-		PUBLIC
-		"${libsdl2image_BINARY_DIR}/include"
-	)
+	# add_dependencies(libsdl2image SDL2)
+	# add_subdirectory("${libsdl2image_SOURCE_DIR}" "${libsdl2image_BINARY_DIR}")
+
 	target_link_directories(
 		cracksdl2
 		PUBLIC
 		"${libsdl2image_BINARY_DIR}"
 	)
-	#target_link_libraries(
-	#	cracksdl2
-	#	PRIVATE
-	#	SDL2_image.lib
-	#)
+	target_include_directories(
+		cracksdl2
+		PUBLIC
+		"${libsdl2image_BINARY_DIR}/include"
+	)
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+		message(STATUS "debug link SDL2_imaged.lib")
+		target_link_libraries(
+			cracksdl2
+			PRIVATE
+			SDL2_imaged.lib
+		)
+	else()
+		message(STATUS "release link SDL2_image.lib")
+		target_link_libraries(
+			cracksdl2
+			PRIVATE
+			SDL2_image.lib
+		)
+	endif()
 else()
 	message(STATUS "has libsdl2image")
 	message(STATUS "sdl: ${libsdl2image_SOURCE_DIR} ${libsdl2image_BINARY_DIR}")

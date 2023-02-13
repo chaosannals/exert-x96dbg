@@ -43,7 +43,13 @@
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x86" ],
-      "variables": []
+      "variables": [
+        {
+          "name": "SDL2IMAGE_INSTALL",
+          "value": "True",
+          "type": "BOOL"
+        }
+      ]
     }
   ]
 }
