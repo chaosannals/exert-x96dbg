@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include <SDL.h>
-//#include <SDL_image.h>
+#include <SDL_image.h>
 
 typedef struct {
     SDL_Renderer* renderer;
@@ -34,6 +34,19 @@ INT WINAPI wWinMain(
     screen = SDL_GetWindowSurface(window);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    auto ir = IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG);
+
+    SDL_Texture* bg = IMG_LoadTexture(renderer, "res/bg.jpg");
+    // auto* bgs = IMG_Load("res/bg.png");
+    const char* error = IMG_GetError();
+    int w, h;
+    SDL_QueryTexture(bg, NULL, NULL, &w, &h);
+    SDL_Rect bgRect;
+    bgRect.x = 0;
+    bgRect.y = 0;
+    bgRect.w = 800;
+    bgRect.h = 600;
+
     while (is_active) {
         // ÊÂ¼þ
         while (0 != SDL_PollEvent(&event)) {
@@ -51,7 +64,10 @@ INT WINAPI wWinMain(
         }
 
         // Ö¡
-        SDL_UpdateWindowSurface(window);
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, bg, NULL, &bgRect);
+        SDL_RenderPresent(renderer);
+        // SDL_UpdateWindowSurface(window);
     }
 
     if (nullptr != renderer) SDL_DestroyRenderer(renderer);
