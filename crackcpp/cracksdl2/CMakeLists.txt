@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+ï»¿cmake_minimum_required(VERSION 3.24)
 
 # https://github.com/libsdl-org/SDL
 
@@ -22,7 +22,7 @@ if (NOT libsdl2_POPULATED)
 else()
 	message(STATUS "has sdl2: ${libsdl2_SOURCE_DIR} ${libsdl2_BINARY_DIR}")
 
-	# ÒÀÀµµÄÃû×ÖÓÉËùÒÀÀµ¿â¶¨Òå²»ÊÇ×Ô¶¨ÒåµÄ libsdl2 ¶øÊÇ SDL2,ÒıÈëÆäËû¿âĞèÒª×ÔĞĞ²é¡£
+	# ä¾èµ–çš„åå­—ç”±æ‰€ä¾èµ–åº“å®šä¹‰ä¸æ˜¯è‡ªå®šä¹‰çš„ libsdl2 è€Œæ˜¯ SDL2,å¼•å…¥å…¶ä»–åº“éœ€è¦è‡ªè¡ŒæŸ¥ã€‚
 	add_dependencies(cracksdl2 SDL2)
 	
 	target_link_directories(
@@ -31,7 +31,7 @@ else()
 		"${libsdl2_BINARY_DIR}"
 	)
 
-	# ºÃÏñÊÇ¿ÉÒÔ´´½¨¸öÖ»ÊÇÓÃÀ´µ¼Èë DLL µÄ¿â£¬µ«ÊÇ²âÁËÏÂºÃÏñÎŞĞ§¡£
+	# å¥½åƒæ˜¯å¯ä»¥åˆ›å»ºä¸ªåªæ˜¯ç”¨æ¥å¯¼å…¥ DLL çš„åº“ï¼Œä½†æ˜¯æµ‹äº†ä¸‹å¥½åƒæ— æ•ˆã€‚
 	#add_library(libsdl2dll SHARED IMPORTED)
 	#set_target_properties(
 	#	libsdl2dll
@@ -102,7 +102,8 @@ FetchContent_Declare(
 	# GIT_REPOSITORY git@github.com:libsdl-org/SDL_image.git
 	# GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
 	# URL https://github.com/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-devel-2.6.3-VC.zip
-	URL https://download.fastgit.org/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-devel-2.6.3-VC.zip
+	# github ç½‘å€è¢«å¢™ï¼Œä½¿ç”¨é•œåƒï¼Œå¦‚æœæ— æ•ˆï¼Œè‡ªå·±å†æ‰¾ã€‚
+	URL https://hub.nuaa.cf/libsdl-org/SDL_image/releases/download/release-2.6.3/SDL2_image-devel-2.6.3-VC.zip
 	# GIT_TAG d3c6d5963dbe438bcae0e2b6f3d7cfea23d02829
 	# GIT_TAG release-2.6.3
 )
@@ -113,7 +114,38 @@ if (NOT libsdl2image_POPULATED)
 	FetchContent_Populate(libsdl2image)
 	message(STATUS "libsdl2image: ${libsdl2image_SOURCE_DIR}" "${libsdl2image_BINARY_DIR}")
 
-	# Ö´ĞĞÃüÁî£¬¸üĞÂ×ÓÄ£¿é£¬ÒªÅäÖÃ´úÀí£¬ÀïÃæ»¹ÒÀÀµÁË¹È¸èµÄ²¿·Ö´úÂë¿â£¬Ö»´úÀíGitHub²»ĞĞ¡£
+	# äºŒè¿›åˆ¶åŒ…å¼•å…¥
+	if (${CMAKE_SIZEOF_VOID_P} EQUAL 4)
+		message(STATUS "import sdl2image x86.")
+		set(LIBSDL2IMAGE_LIB_DIR "${libsdl2image_SOURCE_DIR}/lib/x86")
+	else()
+		message(STATUS "import sdl2image x64.")
+		set(LIBSDL2IMAGE_LIB_DIR "${libsdl2image_SOURCE_DIR}/lib/x64")
+	endif()
+	target_link_directories(
+		cracksdl2
+		PUBLIC
+		"${LIBSDL2IMAGE_LIB_DIR}"
+	)
+	target_include_directories(
+		cracksdl2
+		PUBLIC
+		"${libsdl2image_SOURCE_DIR}/include"
+	)
+	target_link_libraries(
+		cracksdl2
+		PRIVATE
+		SDL2_image.lib
+	)
+	add_custom_command(
+		TARGET cracksdl2 POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${LIBSDL2IMAGE_LIB_DIR}/SDL2_image.dll"
+		"${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CONFIGURATION_TYPES}/SDL2_image.dll"
+	)
+
+	# ä¸‹é¢æ˜¯æºç ç¼–è¯‘æ–¹å¼ï¼Œæœ‰é—®é¢˜ï¼Œæ‰¾ä¸åˆ° SDL2 target
+	# æ‰§è¡Œå‘½ä»¤ï¼Œæ›´æ–°å­æ¨¡å—ï¼Œè¦é…ç½®ä»£ç†ï¼Œé‡Œé¢è¿˜ä¾èµ–äº†è°·æ­Œçš„éƒ¨åˆ†ä»£ç åº“ï¼Œåªä»£ç†GitHubä¸è¡Œã€‚
 	#execute_process(
 	#	COMMAND git submodule update --init --recursive
     #    WORKING_DIRECTORY ${libsdl2image_SOURCE_DIR}

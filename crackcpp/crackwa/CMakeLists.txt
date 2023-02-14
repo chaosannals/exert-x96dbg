@@ -16,6 +16,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     message(STATUS "is MacOS")
 endif()
 
+# 只是 VS 有效
 if (CMAKE_CL_64)
     message(STATUS "is 64bit")
 else()
