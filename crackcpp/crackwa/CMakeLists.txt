@@ -8,19 +8,18 @@ set_target_properties(
     CXX_STANDARD 20
 )
 
+# 启用 MASM 汇编
+enable_language(ASM_MASM)
+if (NOT CMAKE_ASM_MASM_COMPILER_WORKS)
+    message(STATUS "not found MASM.")
+endif()
+
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
     message(STATUS "is Linux")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
     message(STATUS "is Windows")
 elseif(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     message(STATUS "is MacOS")
-endif()
-
-# 只是 VS 有效
-if (CMAKE_CL_64)
-    message(STATUS "is 64bit")
-else()
-    message(STATUS "is 32bit")
 endif()
 
 if (WIN32)
@@ -48,8 +47,23 @@ if (WIN32)
    endif()
 endif()
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    message(STATUS "inline asm")
+    set(PEB_ASM_FILES "")
+else()
+    # 只是 VS 有效
+    if (CMAKE_CL_64)
+        message(STATUS "is 64bit")
+        set(PEB_ASM_FILES "src/peb_x64.asm")
+    else()
+        message(STATUS "is 32bit")
+        set(PEB_ASM_FILES "src/peb_x86.asm")
+    endif()
+endif()
+
 target_sources(
     crackwa
     PRIVATE
+    "${PEB_ASM_FILES}"
     "src/main.cpp"
-)
+ "src/peb.h")

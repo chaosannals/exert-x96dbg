@@ -19,11 +19,21 @@ if (WIN32)
           )
          message(STATUS "crackcmd msvc MT")
       endif()
+
+      # ∆Ù”√ MASM ª„±‡
+      enable_language(ASM_MASM)
+      if (NOT CMAKE_ASM_MASM_COMPILER_WORKS)
+        message(STATUS "not found MASM.")
+      endif()
+   else()
+      # ∆Ù”√ Linux ª„±‡
+      enable_language(ASM)
    endif()
 endif()
 
 target_sources(
     crackcmd
     PRIVATE
+    # "src/peb.asm"
     "src/main.cpp"
 )
