@@ -5,8 +5,15 @@ option(CRACKCMD_VS_LINK_STATIC_MT "crackcmd static link mt." ON)
 set_target_properties(
     crackcmd
     PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 20
 )
+
+FetchContent_Declare(
+    argparse
+    GIT_REPOSITORY git@github.com:p-ranav/argparse.git
+    GIT_TAG v2.9
+)
+FetchContent_MakeAvailable(argparse)
 
 if (WIN32)
    if (MSVC)
@@ -30,6 +37,12 @@ if (WIN32)
       enable_language(ASM)
    endif()
 endif()
+
+target_include_directories(
+    crackcmd
+    PRIVATE
+    "${argparse_SOURCE_DIR}/include"
+)
 
 target_sources(
     crackcmd

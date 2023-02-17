@@ -33,10 +33,18 @@ INT WINAPI wWinMain(
     }
 
     if (HasPEBBeingDebuggedFlag()) {
-        MessageBoxW(NULL, L"PEB 判定", L"不能调试", MB_ICONERROR);
+        MessageBoxW(NULL, L"PEB BeingDebugged 判定", L"不能调试", MB_ICONERROR);
     }
     else {
         MessageBoxW(NULL, L"正常分支(step 3)", L"正常", MB_OK);
+    }
+
+    // 这个 VS 调试的时候不会设置。WinDbg 会设置。
+    if (HasPEBNtGlobalFlag()) {
+        MessageBoxW(NULL, L"PEB NtGlobal 判定", L"不能调试", MB_ICONERROR);
+    }
+    else {
+        MessageBoxW(NULL, L"正常分支(step 4)", L"正常", MB_OK);
     }
 
     return 0;

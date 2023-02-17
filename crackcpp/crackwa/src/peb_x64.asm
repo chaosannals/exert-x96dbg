@@ -9,4 +9,11 @@ HasPEBBeingDebuggedFlag proc
     ret
 HasPEBBeingDebuggedFlag endp
 
+HasPEBNtGlobalFlag proc
+    mov rax, QWORD PTR gs:[60h]
+    mov al, BYTE PTR[rax + 0bch]
+    and rax, 70h
+    ret
+HasPEBNtGlobalFlag endp
+
 end

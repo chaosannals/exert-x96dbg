@@ -27,8 +27,10 @@ BOOL __stdcall HasPEBBeingDebuggedFlag() {
 #else
 #ifdef _WIN64
 extern "C" BOOL HasPEBBeingDebuggedFlag();
+extern "C" BOOL HasPEBNtGlobalFlag();
 #else
 extern "C" BOOL __stdcall HasPEBBeingDebuggedFlag();
+extern "C" BOOL __stdcall HasPEBNtGlobalFlag();
 #endif
 #endif
 

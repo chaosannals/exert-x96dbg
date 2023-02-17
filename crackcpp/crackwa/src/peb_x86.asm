@@ -15,4 +15,13 @@ HasPEBBeingDebuggedFlag proc
     ret
 HasPEBBeingDebuggedFlag endp
 
+HasPEBNtGlobalFlag proc
+    ASSUME fs:NOTHING
+	mov eax, fs:[30h]
+    ASSUME fs:ERROR
+    mov eax, [eax + 68h]
+    and eax, 70h
+    ret
+HasPEBNtGlobalFlag endp
+
 end
