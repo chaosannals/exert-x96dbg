@@ -66,4 +66,4 @@ target_sources(
     PRIVATE
     "${PEB_ASM_FILES}"
     "src/main.cpp"
- "src/peb.h")
+ "src/peb.h" "src/winter.h")

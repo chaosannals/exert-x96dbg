@@ -15,5 +15,18 @@ HasPEBNtGlobalFlag proc
     and rax, 70h
     ret
 HasPEBNtGlobalFlag endp
+    
+HasHeapFlagByPEB proc
+    mov rax, QWORD PTR gs:[60h]
+    mov rax, QWORD PTR [rax + 18h]
+    mov rax, QWORD PTR [rax + 10h] ; 定位的字段好像不对，这个位移排排序链表头
+    ret
+HasHeapFlagByPEB endp
+
+AxDivZero proc
+    xor rax, rax;
+    div rax
+    ret
+AxDivZero endp
 
 end

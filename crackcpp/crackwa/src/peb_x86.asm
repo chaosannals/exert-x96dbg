@@ -24,4 +24,19 @@ HasPEBNtGlobalFlag proc
     ret
 HasPEBNtGlobalFlag endp
 
+HasHeapFlagByPEB proc
+    ASSUME fs:NOTHING
+    mov eax, fs:[30h]
+    ASSUME fs:ERROR
+    mov eax, DWORD PTR [eax + 18h]
+    mov eax, DWORD PTR [eax + 10h]; 定位的字段好像不对，这个位移排排序链表头
+    ret
+HasHeapFlagByPEB endp
+
+AxDivZero proc
+    xor eax, eax;
+    div eax
+    ret
+AxDivZero endp
+
 end
