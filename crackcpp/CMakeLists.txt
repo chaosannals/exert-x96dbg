@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   message(STATUS "using ${CMAKE_CXX_COMPILER_ID}")
@@ -20,4 +20,5 @@ project(crackme)
 add_subdirectory(crackcmd)
 add_subdirectory(cracksdl2)
 add_subdirectory(cracksehw)
+add_subdirectory(crackssh2)
 add_subdirectory(crackwa)
