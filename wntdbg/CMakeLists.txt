@@ -25,12 +25,14 @@ add_subdirectory(${ELEMENTS_ROOT} elements)
 # ÏîÄ¿
 add_subdirectory(buger)
 add_subdirectory(bugerw)
+add_subdirectory(dbginject)
 add_subdirectory(debuger)
 add_subdirectory(debugere)
 
 set_target_properties(
 	buger
 	bugerw
+	dbginject
 	debuger
 	debugere
 	PROPERTIES

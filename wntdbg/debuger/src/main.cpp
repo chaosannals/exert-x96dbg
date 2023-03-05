@@ -46,7 +46,8 @@ int main() {
 				default:
 					break;
 				}
-				ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_CONTINUE);
+				ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_CONTINUE); // 不处理异常，直接执行。（第一次进入引发的异常或INT3必须采用就通过了。其他异常一般会不断发生）
+				// ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_EXCEPTION_NOT_HANDLED); // 使用程序自带的异常处理程序。（如果有的话）
 			}
 			else {
 				yieldMs += 150;
