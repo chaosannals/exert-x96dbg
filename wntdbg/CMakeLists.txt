@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+ï»¿cmake_minimum_required(VERSION 3.24)
 
 include(FetchContent)
 
@@ -8,21 +8,21 @@ if (NOT WIN32)
 	message(FATAL_ERROR "mast Windows.")
 endif()
 
-# elements ¿âÒıÈë
+# elements åº“å¼•å…¥
 FetchContent_Declare(
     elements
     GIT_REPOSITORY git@github.com:cycfi/elements.git
-    # GIT_TAG Õâ¿â×÷Õß²»´ò±êÇ©- -
+    # GIT_TAG è¿™åº“ä½œè€…ä¸æ‰“æ ‡ç­¾- -
 )
 FetchContent_Populate(elements)
 set(ELEMENTS_ROOT ${elements_SOURCE_DIR})
 get_filename_component(ELEMENTS_ROOT "${ELEMENTS_ROOT}" ABSOLUTE)
 set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${ELEMENTS_ROOT}/cmake")
 include(ElementsConfigCommon)
-set(ELEMENTS_BUILD_EXAMPLES OFF) # Õâ¸ö±ØĞë OFF
+set(ELEMENTS_BUILD_EXAMPLES OFF) # è¿™ä¸ªå¿…é¡» OFF
 add_subdirectory(${ELEMENTS_ROOT} elements)
 
-# ÏîÄ¿
+# é¡¹ç›®
 add_subdirectory(buger)
 add_subdirectory(bugerw)
 add_subdirectory(dbginject)

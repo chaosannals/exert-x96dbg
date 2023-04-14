@@ -1,4 +1,4 @@
-add_executable(crackcmd)
+ï»¿add_executable(crackcmd)
 
 option(CRACKCMD_VS_LINK_STATIC_MT "crackcmd static link mt." ON)
 
@@ -17,7 +17,7 @@ FetchContent_MakeAvailable(argparse)
 
 if (WIN32)
    if (MSVC)
-      # ¾²Ì¬ÔËĞĞ¿â MT
+      # é™æ€è¿è¡Œåº“ MT
       if (CRACKCMD_VS_LINK_STATIC_MT)
           set_target_properties(
               crackcmd
@@ -27,13 +27,13 @@ if (WIN32)
          message(STATUS "crackcmd msvc MT")
       endif()
 
-      # ÆôÓÃ MASM »ã±à
+      # å¯ç”¨ MASM æ±‡ç¼–
       enable_language(ASM_MASM)
       if (NOT CMAKE_ASM_MASM_COMPILER_WORKS)
         message(STATUS "not found MASM.")
       endif()
    else()
-      # ÆôÓÃ Linux »ã±à
+      # å¯ç”¨ Linux æ±‡ç¼–
       enable_language(ASM)
    endif()
 endif()

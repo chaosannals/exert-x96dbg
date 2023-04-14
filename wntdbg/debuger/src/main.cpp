@@ -1,4 +1,4 @@
-#include <Windows.h>
+ï»¿#include <Windows.h>
 #include <iostream>
 
 WCHAR TargetCommand[] = L"buger.exe";
@@ -16,8 +16,8 @@ int main() {
 			NULL,
 			NULL,
 			FALSE,
-			//DEBUG_ONLY_THIS_PROCESS, // Ö»µ÷ÊÔÖ÷½ø³Ì
-			DEBUG_PROCESS, // µ÷ÊÔ
+			//DEBUG_ONLY_THIS_PROCESS, // åªè°ƒè¯•ä¸»è¿›ç¨‹
+			DEBUG_PROCESS, // è°ƒè¯•
 			NULL,
 			NULL,
 			&si,
@@ -46,8 +46,8 @@ int main() {
 				default:
 					break;
 				}
-				ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_CONTINUE); // ²»´¦ÀíÒì³££¬Ö±½ÓÖ´ĞĞ¡££¨µÚÒ»´Î½øÈëÒı·¢µÄÒì³£»òINT3±ØĞë²ÉÓÃ¾ÍÍ¨¹ıÁË¡£ÆäËûÒì³£Ò»°ã»á²»¶Ï·¢Éú£©
-				// ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_EXCEPTION_NOT_HANDLED); // Ê¹ÓÃ³ÌĞò×Ô´øµÄÒì³£´¦Àí³ÌĞò¡££¨Èç¹ûÓĞµÄ»°£©
+				ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_CONTINUE); // ä¸å¤„ç†å¼‚å¸¸ï¼Œç›´æ¥æ‰§è¡Œã€‚ï¼ˆç¬¬ä¸€æ¬¡è¿›å…¥å¼•å‘çš„å¼‚å¸¸æˆ–INT3å¿…é¡»é‡‡ç”¨å°±é€šè¿‡äº†ã€‚å…¶ä»–å¼‚å¸¸ä¸€èˆ¬ä¼šä¸æ–­å‘ç”Ÿï¼‰
+				// ContinueDebugEvent(event.dwProcessId, event.dwThreadId, DBG_EXCEPTION_NOT_HANDLED); // ä½¿ç”¨ç¨‹åºè‡ªå¸¦çš„å¼‚å¸¸å¤„ç†ç¨‹åºã€‚ï¼ˆå¦‚æœæœ‰çš„è¯ï¼‰
 			}
 			else {
 				yieldMs += 150;

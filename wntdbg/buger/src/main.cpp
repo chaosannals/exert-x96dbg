@@ -1,20 +1,20 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <Windows.h>
 
 void EchoSysInfo() {
 	DWORD computer_name_length = MAX_COMPUTERNAME_LENGTH;
 	WCHAR computer_name[MAX_COMPUTERNAME_LENGTH];
 	if (GetComputerNameW(computer_name, &computer_name_length)) {
-		std::wcout << "¼ÆËã»úÃû:" << computer_name_length << computer_name << std::endl;
+		std::wcout << "è®¡ç®—æœºå:" << computer_name_length << computer_name << std::endl;
 	}
 	else {
-		std::cout << "»ñÈ¡¼ÆËã»úÃûÊ§°Ü" << std::endl;
+		std::cout << "èŽ·å–è®¡ç®—æœºåå¤±è´¥" << std::endl;
 	}
 
 	SYSTEM_INFO si = { 0 };
 	GetSystemInfo(&si);
-	std::wcout << "CPU ÊýÁ¿:" << si.dwNumberOfProcessors << std::endl;
-	std::wcout << "CPU ÀàÐÍ£º" << si.dwProcessorType << std::endl;
+	std::wcout << "CPU æ•°é‡:" << si.dwNumberOfProcessors << std::endl;
+	std::wcout << "CPU ç±»åž‹ï¼š" << si.dwProcessorType << std::endl;
 }
 
 int main() {
